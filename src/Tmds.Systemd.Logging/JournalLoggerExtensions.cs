@@ -36,9 +36,12 @@ namespace Microsoft.Extensions.Logging
                 throw new ArgumentNullException(nameof(configure));
             }
 
-            builder.AddJournal();
-            builder.Services.Configure(configure);
-
+            if (Journal.IsSupported)
+            {
+                builder.AddJournal();
+                builder.Services.Configure(configure);
+            }
+            
             return builder;
         }
     }
